@@ -1,0 +1,458 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+
+
+{% block extra_head %}
+<style>
+    html,
+    body,
+    header,
+    .view {
+        height: 100%;
+    }
+
+    @media (min-width: 851px) and (max-width: 1440px) {
+
+        html,
+        body,
+        header,
+        .view {
+            height: 850px;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+        html,
+        body,
+        header,
+        .view {
+            height: 1000px;
+        }
+    }
+
+    @media (min-width: 451px) and (max-width: 740px) {
+
+        html,
+        body,
+        header,
+        .view {
+            height: 1200px;
+        }
+    }
+
+    @media (max-width: 450px) {
+
+        html,
+        body,
+        header,
+        .view {
+            height: 1400px;
+        }
+    }
+</style>
+
+
+<style>
+    body {
+        /* background-image: url("{%static 'images/promoter bg.webp'%}"); */
+        background-image: url("{%static 'images/re_bg.png'%}");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .errorlist {
+        list-style: none;
+        margin: 0;
+        font-size: smaller;
+        color: rgba(255, 17, 0, 0.795);
+        font-style: italic;
+    }
+
+    .map-container {
+        overflow: hidden;
+        padding-bottom: 56.25%;
+        position: relative;
+        height: 0;
+    }
+
+    .map-container iframe {
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+    }
+
+    .sidebar-fixed {
+        height: 100vh;
+        width: 270px;
+        -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+        z-index: 1050;
+        background-color: #fff;
+        padding: 0 1.5rem 1.5rem
+    }
+
+    .sidebar-fixed .list-group .active {
+        -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+        -webkit-border-radius: 5px;
+        border-radius: 5px
+    }
+
+    .sidebar-fixed .logo-wrapper {
+        padding: 2.5rem
+    }
+
+    .sidebar-fixed .logo-wrapper img {
+        max-height: 50px
+    }
+
+    .sidebar-inactive {
+        display: none;
+
+    }
+
+    @media (min-width:1200px) {
+
+        .navbar,
+        .page-footer,
+        .alert,
+        main {
+            padding-left: 270px
+        }
+    }
+
+    @media (max-width:150px) {
+        .sidebar-fixed {
+            display: none
+        }
+    }
+</style>
+
+<style>
+    .admin-up {
+        margin-left: 4%;
+        margin-right: 4%;
+        margin-top: -1.25rem
+    }
+
+    .cascading-admin-card .admin-up .fab,
+    .cascading-admin-card .admin-up .far,
+    .cascading-admin-card .admin-up .fas {
+        padding: 1.7rem;
+        font-size: 2rem;
+        color: #fff;
+        text-align: left;
+        -webkit-border-radius: 3px;
+        border-radius: 3px
+    }
+
+    .cascading-admin-card .admin-up .data {
+        float: right;
+        margin-top: 2rem;
+        text-align: right
+    }
+
+    .cascading-admin-card .admin-up .data p {
+        color: #999;
+        font-size: 12px
+    }
+
+    .classic-admin-card .card-body {
+        color: #fff;
+        margin-bottom: 0;
+        padding: .9rem
+    }
+
+    .classic-admin-card .card-body p {
+        font-size: 13px;
+        opacity: .7;
+        margin-bottom: 0
+    }
+
+    .classic-admin-card .card-body h4 {
+        margin-top: 10px
+    }
+
+    .classic-admin-card .card-body .float-right .fab,
+    .classic-admin-card .card-body .float-right .far,
+    .classic-admin-card .card-body .float-right .fas {
+        font-size: 3rem;
+        opacity: .5
+    }
+
+    .classic-admin-card .progress {
+        margin: 0;
+        opacity: .7
+    }
+</style>
+{% endblock extra_head %}
+
+
+{% block content %}
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar-fixed position-fixed">
+
+    <a class="logo-wrapper waves-effect">
+        <i id="icon-sidebarCollapse" class="fas fa-times"
+            style="position: absolute; top: 0; right: 0; font-size: 1.7rem; color: #495057;"></i>
+        <img src="{%static 'images/logo_big.webp'%} " class="img-fluid" alt="">
+    </a>
+
+
+    <div class="list-group list-group-flush">
+        <a href="{% url 'core:dashboard' %}" class="list-group-item waves-effect">
+            <i class="fas fa-chart-pie mr-3"></i>Dashboard
+        </a>
+        <a href="{% url 'core:profile' %}" class="list-group-item list-group-item-action active waves-effect">
+            <i class="fas fa-user mr-3"></i>Profile</a>
+        <a href="{% url 'core:referred' %}" class="list-group-item list-group-item-action waves-effect">
+            <i class="fas fa-users mr-3"></i>Statistics</a>
+        <a href="{% url 'core:cashout' %}" class="list-group-item list-group-item-action waves-effect">
+            <i class="fas fa-money-bill-alt mr-3"></i>Cash Out</a>
+    </div>
+
+</div>
+<!-- Sidebar -->
+<!-- Main layout -->
+<main class="pt-5 mx-lg-5">
+    <div class="container-fluid mt-5">
+        <!-- Heading -->
+        <div class="card mb-4 wow fadeIn">
+
+            <!--Card content-->
+            <div class="card-body d-sm-flex justify-content-between">
+
+                <h5 class="mb-2 mb-sm-0 pt-1">
+                    <a href="{% url 'core:dashboard' %} ">Promoter</a>
+                    <span>/</span>
+                    <span>Profile</span>
+                </h5>
+                <form class="d-flex justify-content-center">
+                    <h6>Account Balance: N{{balance}} </h6>
+                </form>
+            </div>
+
+        </div>
+        <!-- Heading -->
+        <!-- Section: Team v.1 -->
+        <section class="section team-section">
+
+            <!-- Grid row -->
+            <div class="row text-center">
+
+                <!-- Grid column -->
+                <div class="col-md-12 mb-4">
+
+                    <!-- Card -->
+                    <form action="." method="post">
+                        {% csrf_token %}
+                        <div class="card card-cascade cascading-admin-card user-card">
+
+                            <!-- Card Data -->
+                            <div class="admin-up d-flex justify-content-start">
+                                <i class="fas fa-users info-color py-4 mr-3 z-depth-2"></i>
+                                <div class="data">
+                                    <h5 class="font-weight-bold dark-grey-text">Edit Profile - <span
+                                            class="text-muted">Complete your
+                                            profile</span></h5>
+                                </div>
+                            </div>
+                            <!-- Card Data -->
+
+                            <!-- Card content -->
+                            <div class="card-body card-body-cascade">
+
+                                <!-- Grid row -->
+                                <div class="row">
+
+                                    <!-- Grid column -->
+                                    <div class="col-lg-4">
+
+                                        <div class="md-form form-sm mb-0">
+                                            <input type="text" id="username" name="username" autocomplete="username"
+                                                maxlength="150" value="{{user_info.username}}"
+                                                class="form-control form-control-sm " readonly>
+                                            <label for="username" class="">Username</label>
+                                        </div>
+
+                                    </div>
+                                    <!-- Grid column -->
+
+                                    <!-- Grid column -->
+                                    <div class="col-lg-4">
+
+                                        <div class="md-form form-sm mb-0">
+                                            <input type="email" id="email" name="email" value="{{user_info.email}}"
+                                                autocomplete=" email" class="form-control form-control-sm" readonly>
+                                            <label for="email" class="">Email address</label>
+                                        </div>
+
+                                    </div>
+                                    <!-- Grid column -->
+
+                                    <!-- Grid column -->
+                                    <div class="col-lg-4">
+
+                                        <div class="md-form form-sm mb-0">
+                                            <input type="number" id="phone" name="phone"
+                                                value="{{promoter.phone_number}}" class="form-control form-control-sm">
+                                            <label for="phone" class="">Phone number</label>
+                                        </div>
+
+                                    </div>
+                                    <!-- Grid column -->
+
+                                </div>
+                                <!-- Grid row -->
+
+                                <!-- Grid row -->
+                                <div class="row">
+
+                                    <!-- Grid column -->
+                                    <div class="col-md-6">
+
+                                        <div class="md-form form-sm mb-0">
+                                            <input type="text" id="first_name" name="first_name"
+                                                {% if promoter.first_name %}value="{{promoter.first_name}}" {% endif %}
+                                                class="form-control form-control-sm" maxlength="150">
+                                            <label for="first_name" class="">First name</label>
+                                        </div>
+
+                                    </div>
+                                    <!-- Grid column -->
+
+                                    <!-- Grid column -->
+                                    <div class="col-md-6">
+
+                                        <div class="md-form form-sm mb-0">
+                                            <input type="text" id="last_name" name="last_name"
+                                                {% if promoter.last_name %}value="{{promoter.last_name}}" {% endif %}
+                                                class="form-control form-control-sm" maxlength="150">
+                                            <label for="last_name" class="">Last name</label>
+                                        </div>
+
+                                    </div>
+                                    <!-- Grid column -->
+
+                                </div>
+                                <!-- Grid row -->
+
+                                <!-- Grid row -->
+                                <div class="row">
+
+                                    <!-- Grid column -->
+                                    <div class="col-md-12">
+
+                                        <div class="md-form form-sm mb-0">
+                                            <input type="text" id="address" name="address"
+                                                {% if promoter.address %}value="{{promoter.address}}" {% endif %}
+                                                class="form-control form-control-sm">
+                                            <label for="address" class="">Address</label>
+                                        </div>
+
+                                    </div>
+                                    <!-- Grid column -->
+
+                                </div>
+                                <!-- Grid row -->
+                                <hr>
+                                <!-- Grid row -->
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <h4 class="text-muted text-left my-4">Bank Details</h4>
+                                    </div>
+                                    <!-- Grid column -->
+                                    <div class="col-lg-4 col-md-12">
+
+                                        <div class="form-group mb-0 mt-4">
+                                            <select class="form-control" name="bank_name" id="bank_name">
+                                                <option value="null">(SELECT BANK)</option>
+
+                                                {% for value, name in form.fields.bank_name.choices %}
+                                                <option {% if promoter.bank_name == value %} selected {% endif %}
+                                                    value="{{ value }}">{{name}}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <!-- <label for="bank_name" class="">Select Bank</label> -->
+                                        </div>
+
+                                    </div>
+                                    <!-- Grid column -->
+
+                                    <!-- Grid column -->
+                                    <div class="col-lg-4 col-md-6">
+
+                                        <div class="md-form form-sm mb-0">
+                                            <input type="text" id="bank_account_name" name="bank_account_name"
+                                                {% if promoter.bank_account_name %}value="{{promoter.bank_account_name}}"
+                                                {% endif %} class="form-control form-control-sm">
+                                            <label for="bank_account_name" class="">Account Name</label>
+                                        </div>
+
+                                    </div>
+                                    <!-- Grid column -->
+
+                                    <!-- Grid column -->
+                                    <div class="col-lg-4 col-md-6">
+
+                                        <div class="md-form form-sm mb-0">
+                                            <input type="number" maxlength="11" id="bank_account_number"
+                                                value="{{promoter.bank_account_number}}" name="bank_account_number"
+                                                class="form-control
+                                               form-control-sm">
+                                            <label for="bank_account_number" class="">Account Number</label>
+                                        </div>
+
+                                    </div>
+                                    <!-- Grid column -->
+
+                                </div>
+                                <!-- Grid row -->
+                                <button type="submit"
+                                    class="btn btn-info btn-rounded waves-effect waves-light">Save</button>
+
+                            </div>
+                            <!-- Card content -->
+
+                        </div>
+                    </form>
+                    <!-- Card -->
+
+                </div>
+                <!-- Grid column -->
+
+            </div>
+            <!-- Grid row -->
+
+        </section>
+        <!-- Section: Team v.1 -->
+
+    </div>
+</main>
+<!-- Main layout -->
+
+{% endblock content %}
+
+
+{% block extra_script %}
+<script>
+    $(document).ready(function () {
+
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('sidebar-inactive');
+        });
+
+        $('#icon-sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('sidebar-inactive');
+        });
+
+
+    });
+</script>
+{% endblock extra_script %}

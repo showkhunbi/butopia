@@ -1,0 +1,451 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+
+{% block head_style %}
+<style>
+  html,
+  body,
+  header,
+  .view {
+    height: 100%;
+  }
+
+  @media (min-width: 851px) and (max-width: 1440px) {
+
+    html,
+    body,
+    header,
+    .view {
+      height: 850px;
+    }
+  }
+
+  @media (min-width: 800px) and (max-width: 850px) {
+
+    html,
+    body,
+    header,
+    .view {
+      height: 1000px;
+    }
+  }
+
+  @media (min-width: 451px) and (max-width: 740px) {
+
+    html,
+    body,
+    header,
+    .view {
+      height: 1200px;
+    }
+  }
+
+  @media (max-width: 450px) {
+
+    html,
+    body,
+    header,
+    .view {
+      height: 1400px;
+    }
+  }
+</style>
+<style type="text/css">
+  /* Chart.js */
+  @-webkit-keyframes chartjs-render-animation {
+    from {
+      opacity: 0.99
+    }
+
+    to {
+      opacity: 1
+    }
+  }
+
+  @keyframes chartjs-render-animation {
+    from {
+      opacity: 0.99
+    }
+
+    to {
+      opacity: 1
+    }
+  }
+
+  .chartjs-render-monitor {
+    -webkit-animation: chartjs-render-animation 0.001s;
+    animation: chartjs-render-animation 0.001s;
+  }
+</style>
+<style>
+  ._3emE9--dark-theme .-S-tR--ff-downloader {
+    background: rgba(30, 30, 30, .93);
+    border: 1px solid rgba(82, 82, 82, .54);
+    box-shadow: 0 4px 7px rgba(30, 30, 30, .55);
+    color: #fff
+  }
+
+  ._3emE9--dark-theme .-S-tR--ff-downloader ._6_Mtt--header ._2VdJW--minimize-btn {
+    background: #3d4b52
+  }
+
+  ._3emE9--dark-theme .-S-tR--ff-downloader ._6_Mtt--header ._2VdJW--minimize-btn:hover {
+    background: #131415
+  }
+
+  ._3emE9--dark-theme .-S-tR--ff-downloader ._10vpG--footer {
+    background: rgba(30, 30, 30, .93)
+  }
+
+  ._2mDEx--white-theme .-S-tR--ff-downloader {
+    background: #fff;
+    border: 1px solid rgba(82, 82, 82, .54);
+    box-shadow: 0 4px 7px rgba(30, 30, 30, .55);
+    color: #314c75
+  }
+
+  ._2mDEx--white-theme .-S-tR--ff-downloader ._6_Mtt--header {
+    font-weight: 700
+  }
+
+  ._2mDEx--white-theme .-S-tR--ff-downloader ._2dFLA--container ._2bWNS--notice {
+    border: 0;
+    color: rgba(0, 0, 0, .88)
+  }
+
+  ._2mDEx--white-theme .-S-tR--ff-downloader ._10vpG--footer {
+    background: #fff
+  }
+
+  .-S-tR--ff-downloader {
+    display: block;
+    overflow: hidden;
+    position: fixed;
+    bottom: 20px;
+    right: 7.1%;
+    width: 330px;
+    height: 180px;
+    background: rgba(30, 30, 30, .93);
+    border-radius: 2px;
+    color: #fff;
+    z-index: 99999999;
+    border: 1px solid rgba(82, 82, 82, .54);
+    box-shadow: 0 4px 7px rgba(30, 30, 30, .55);
+    transition: .5s
+  }
+
+  .-S-tR--ff-downloader._3M7UQ--minimize {
+    height: 62px
+  }
+
+  .-S-tR--ff-downloader._3M7UQ--minimize .nxuu4--file-info,
+  .-S-tR--ff-downloader._3M7UQ--minimize ._6_Mtt--header {
+    display: none
+  }
+
+  .-S-tR--ff-downloader ._6_Mtt--header {
+    padding: 10px;
+    font-size: 17px;
+    font-family: sans-serif
+  }
+
+  .-S-tR--ff-downloader ._6_Mtt--header ._2VdJW--minimize-btn {
+    float: right;
+    background: #f1ecec;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    padding: 2px;
+    margin-top: -10px;
+    cursor: pointer
+  }
+
+  .-S-tR--ff-downloader ._6_Mtt--header ._2VdJW--minimize-btn:hover {
+    background: #e2dede
+  }
+
+  .-S-tR--ff-downloader ._13XQ2--error {
+    color: red;
+    padding: 10px;
+    font-size: 12px;
+    line-height: 19px
+  }
+
+  .-S-tR--ff-downloader ._2dFLA--container {
+    position: relative;
+    height: 100%
+  }
+
+  .-S-tR--ff-downloader ._2dFLA--container .nxuu4--file-info {
+    padding: 6px 15px 0;
+    font-family: sans-serif
+  }
+
+  .-S-tR--ff-downloader ._2dFLA--container .nxuu4--file-info div {
+    margin-bottom: 5px;
+    width: 100%;
+    overflow: hidden
+  }
+
+  .-S-tR--ff-downloader ._2dFLA--container ._2bWNS--notice {
+    margin-top: 21px;
+    font-size: 11px
+  }
+
+  .-S-tR--ff-downloader ._10vpG--footer {
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+    font-weight: 700
+  }
+
+  .-S-tR--ff-downloader ._10vpG--footer ._2V73d--loader {
+    -webkit-animation: n0BD1--rotation 3.5s linear forwards;
+    animation: n0BD1--rotation 3.5s linear forwards;
+    position: absolute;
+    top: -120px;
+    left: calc(50% - 35px);
+    border-radius: 50%;
+    border: 5px solid #fff;
+    border-top-color: #a29bfe;
+    height: 70px;
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+  }
+
+  .-S-tR--ff-downloader ._10vpG--footer ._24wjw--loading-bar {
+    width: 100%;
+    height: 18px;
+    background: #dfe6e9;
+    border-radius: 5px
+  }
+
+  .-S-tR--ff-downloader ._10vpG--footer ._24wjw--loading-bar ._1FVu9--progress-bar {
+    height: 100%;
+    background: #8bc34a;
+    border-radius: 5px
+  }
+
+  .-S-tR--ff-downloader ._10vpG--footer ._2KztS--status {
+    margin-top: 10px
+  }
+
+  .-S-tR--ff-downloader ._10vpG--footer ._2KztS--status ._1XilH--state {
+    float: left;
+    font-size: .9em;
+    letter-spacing: 1pt;
+    text-transform: uppercase;
+    width: 100px;
+    height: 20px;
+    position: relative
+  }
+
+  .-S-tR--ff-downloader ._10vpG--footer ._2KztS--status ._1jiaj--percentage {
+    float: right
+  }
+</style>
+<style>
+  body {
+    /* background-image: url("{%static 'images/promoter bg.webp'%}"); */
+    background-image: url("{%static 'images/re_bg.png'%}");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .errorlist {
+    list-style: none;
+    margin: 0;
+    font-size: smaller;
+    color: rgba(255, 17, 0, 0.795);
+    font-style: italic;
+  }
+</style>
+
+{% endblock head_style %}
+
+
+
+{% block content %}
+<!-- Main Navigation -->
+<header class="register-page">
+
+  <!-- Intro Section -->
+  <section class="view intro-2">
+    <div class="mask rgba-gradient">
+      <div class="container h-100 d-flex justify-content-center align-items-center">
+
+        <!-- Grid row -->
+        <div class="row pt-5">
+
+          <!-- Grid column -->
+          <div class="col-md-12">
+
+            <div class="card">
+              <div class="card-body">
+
+                <h2 class="font-weight-bold my-4 text-center mb-5 mt-4 font-weight-bold">
+                  <strong>REGISTER</strong>
+                </h2>
+                <hr>
+
+                <!-- Grid row -->
+                <div class="row mt-5">
+
+                  <!-- Grid column -->
+                  <div class="col-md-6 ml-lg-5 ml-md-3">
+
+                    <!-- Grid row -->
+                    <div class="row pb-4">
+                      <div class="col-2 col-lg-1">
+                        <i class="fas fa-university indigo-text fa-lg"></i>
+                      </div>
+                      <div class="col-10">
+                        <h4 class="font-weight-bold mb-4">
+                          <strong>Become a Promoter</strong>
+                        </h4>
+                        <p class="">Join the growing Chain of GSF Post UTME Past Questions and Solution Manual E-Book
+                          Promoters.</p>
+                      </div>
+                    </div>
+                    <!-- Grid row -->
+
+                    <!-- Grid row -->
+                    <div class="row pb-4">
+                      <div class="col-2 col-lg-1">
+                        <i class="far fa-money-bill-alt deep-purple-text fa-lg"></i>
+                      </div>
+                      <div class="col-10">
+                        <h4 class="font-weight-bold mb-4">
+                          <strong>Refer and Earn</strong>
+                        </h4>
+                        <p class="">Earn a Cash Bonus of N200 on every confirmed purchase using your referral id and
+                          withdraw at any amount. This means you can refer 10 people a day and collect your N1000 cash
+                          price.</p>
+                      </div>
+                    </div>
+                    <!-- Grid row -->
+
+                    <!-- Grid row -->
+                    <div class="row pb-4">
+                      <div class="col-2 col-lg-1">
+                        <i class="far fa-money-bill-alt deep-purple-text fa-lg"></i>
+                      </div>
+                      <div class="col-10">
+                        <h4 class="font-weight-bold mb-4">
+                          <strong>Do it now</strong>
+                        </h4>
+                        <p class="">What are you waiting for? Sign up, become a promoter and start enjoying instant
+                          bonuses.</p>
+                      </div>
+                    </div>
+                    <!-- Grid row -->
+
+                  </div>
+                  <!-- Grid column -->
+
+                  <!-- Grid column -->
+                  <div class="col-md-5">
+
+                    <!-- Grid row -->
+                    <div class="row d-flex justify-content-center mb-1">
+                      <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign
+                          in</a>.{% endblocktrans %}</p>
+
+                    </div>
+                    <!-- /Grid row -->
+                    <form method="post" id="signup_form" action="{% url 'account_signup'%}">
+                      {{form.non_field_errors}}
+
+                      {% csrf_token %}
+                      <!-- Body -->
+                      {{form.username.errors}}
+                      <div class="md-form {% if form.username.errors %}mt-0{% endif %}">
+                        <i class="fas fa-user prefix active"></i>
+                        <input type="text" id="id_username" name="{{form.username.name}}" class="form-control"
+                          autocomplete="username" minlength="1" maxlength="150" placeholder="Username" required
+                          onkeyup="this.value = this.value.toLowerCase();" />
+                        <label for="id_username" class="active">Username</label>
+                      </div>
+                      {{form.email.errors}}
+                      <div class="md-form {% if form.email.errors %}mt-0{% endif %}">
+                        <i class="fas fa-envelope prefix active"></i>
+                        <input type="email" id="id_email" name="{{form.email.name}}" placeholder="E-mail address"
+                          autocomplete="email" class="form-control" required>
+                        <label for="id_email" class="active">Email</label>
+                      </div>
+
+                      {{form.password1.errors}}
+                      <div class="md-form {% if form.password1.errors %}mt-0{% endif %}">
+                        <i class="fas fa-lock prefix active"></i>
+                        <input type="password" id="id_password1" name="{{form.password1.name}}"
+                          autocomplete="new-password" required placeholder="Password" class="form-control">
+                        <label for="id_password1" class="active">Password</label>
+                      </div>
+
+                      {{form.password2.errors}}
+                      <p style="margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 0px;margin-inline-end: 0px;padding-inline-start: 40px;"
+                        class="errorlist m-0" id="pass2error"></p>
+                      <div id="p2-md-form" class="md-form {% if form.password2.errors %}mt-0{% endif %}">
+                        <i class="fas fa-lock prefix active"></i>
+                        <input type="password" id="id_password2" name="{{form.password2.name}}" required
+                          placeholder="Password (again)" class="form-control">
+                        <label for="id_password2" class="active">Password (again)</label>
+                      </div>
+                      {% if redirect_field_value %}
+                      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                      {% endif %}
+                      <div class="text-center">
+                        <button type="submit"
+                          class="btn btn-indigo btn-rounded mt-2 waves-effect waves-light">{% trans "Sign Up" %}
+                          &raquo;</button>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- Grid column -->
+
+                </div>
+                <!-- Grid row -->
+
+              </div>
+            </div>
+
+          </div>
+          <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+      </div>
+    </div>
+  </section>
+  <!-- Intro Section -->
+
+</header>
+<!-- Main Navigation -->
+{% endblock content %}
+
+
+{% block extra_script %}
+<script>
+  $("#document").ready(function () {
+    $("#id_password2").keyup(function () {
+      console.log($("#id_password2").val())
+      console.log($("#id_password1").val())
+      if ($("#id_password2").val() != $("#id_password1").val()) {
+        $("#pass2error").text("Password does not match")
+        $("#p2-md-form").addClass("mt-0")
+      } else {
+        $("#pass2error").text("")
+        $("#p2-md-form").removeClass("mt-0")
+      }
+    })
+  })
+</script>
+{% endblock extra_script %}

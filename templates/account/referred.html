@@ -1,0 +1,284 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block o_r %}{% endblock o_r %}
+{% block extra_head %}
+<style>
+    .map-container {
+        overflow: hidden;
+        padding-bottom: 56.25%;
+        position: relative;
+        height: 0;
+    }
+
+    .map-container iframe {
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+    }
+
+    .sidebar-fixed {
+        height: 100vh;
+        width: 270px;
+        -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+        z-index: 1050;
+        background-color: #fff;
+        padding: 0 1.5rem 1.5rem
+    }
+
+    .sidebar-fixed .list-group .active {
+        -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+        -webkit-border-radius: 5px;
+        border-radius: 5px
+    }
+
+    .sidebar-fixed .logo-wrapper {
+        padding: 2.5rem
+    }
+
+    .sidebar-fixed .logo-wrapper img {
+        max-height: 50px
+    }
+
+    .sidebar-inactive {
+        display: none;
+
+    }
+
+    @media (min-width:1200px) {
+
+        .navbar,
+        .page-footer,
+        .alert,
+        main {
+            padding-left: 270px
+        }
+    }
+
+    @media (max-width:150px) {
+        .sidebar-fixed {
+            display: none
+        }
+    }
+</style>
+{% endblock extra_head %}
+
+
+{% block content %}
+<!-- <header> -->
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar-fixed position-fixed">
+
+    <a class="logo-wrapper waves-effect">
+        <i id="icon-sidebarCollapse" class="fas fa-times"
+            style="position: absolute; top: 0; right: 0; font-size: 1.7rem; color: #495057;"></i>
+        <img src="{%static 'images/logo_big.webp'%} " class="img-fluid" alt="">
+    </a>
+
+    <div class="list-group list-group-flush">
+        <a href="{% url 'core:dashboard' %}" class="list-group-item waves-effect">
+            <i class="fas fa-chart-pie mr-3"></i>Dashboard
+        </a>
+        <a href="{% url 'core:profile' %}" class="list-group-item list-group-item-action waves-effect">
+            <i class="fas fa-user mr-3"></i>Profile</a>
+        <a href="{% url 'core:referred' %}" class="list-group-item list-group-item-action active waves-effect">
+            <i class="fas fa-users mr-3"></i>Statistics</a>
+        <a href="{% url 'core:cashout' %}" class="list-group-item list-group-item-action waves-effect">
+            <i class="fas fa-money-bill-alt mr-3"></i>Cash Out</a>
+    </div>
+
+</div>
+<!-- Sidebar -->
+<!-- </header> -->
+
+<!--Main layout-->
+<main class="pt-5 mx-lg-5">
+    <div class="container-fluid mt-5">
+
+        <!-- Heading -->
+        <div class="card mb-4 wow fadeIn">
+
+            <!--Card content-->
+            <div class="card-body d-sm-flex justify-content-between">
+
+                <h5 class="mb-2 mb-sm-0 pt-1">
+                    <a href="{% url 'core:dashboard' %} ">Promoter</a>
+                    <span>/</span>
+                    <span>Referred customers</span>
+                </h5>
+                <form class="d-flex justify-content-center">
+                    <h6>Account Balance: N{{balance}} </h6>
+                </form>
+            </div>
+
+        </div>
+        <!-- Heading -->
+
+        <h1 class="display-5">Referrals</h1>
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+
+            <!--Grid column-->
+            <div class="col-md-12 mb-4">
+
+                <!--Card-->
+                <div class="card">
+
+                    <!--Card content-->
+                    <div class="card-body">
+
+                        <!-- Table  -->
+                        <table class="table table-hover">
+                            <!-- Table head -->
+                            <thead class="blue-grey lighten-4">
+                                <tr>
+                                    <th>#</th>
+                                    <th>First name</th>
+                                    <th>Last name</th>
+                                    <th>Email</th>
+                                    <th>Payment status</th>
+                                    <th>Payment reference</th>
+                                    <th>Time</th>
+                                    <th>Checked?</th>
+                                </tr>
+                            </thead>
+                            <!-- Table head -->
+
+                            <!-- Table body -->
+                            <tbody>
+
+                                {% for referrerOrder in info %}
+                                <tr>
+                                    <th scope="row">{{forloop.counter}}</th>
+                                    <td>{{referrerOrder.customer.first_name}}</td>
+                                    <td>{{referrerOrder.customer.last_name}}</td>
+                                    <td>{{referrerOrder.customer.email}}</td>
+                                    <td>
+                                        {% if referrerOrder.successful_payment %}&#10004 {% else %} &#10006{% endif %}
+                                    </td>
+                                    <td>{{referrerOrder.order.reference}}</td>
+                                    <td>{{referrerOrder.order.paid_at}}</td>
+                                    <td>
+                                        {% if referrerOrder.checked %}&#10004 {% else %} &#10006{% endif %}
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td>Nothing to display</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <!-- Table body -->
+                        </table>
+                        <!-- Table  -->
+
+                    </div>
+
+                </div>
+                <!--/.Card-->
+
+            </div>
+            <!--Grid column-->
+        </div>
+        <!--Grid row-->
+
+        <h1 class="display-5">Transfer Requests</h1>
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+
+            <!--Grid column-->
+            <div class="col-md-12 mb-4">
+
+                <!--Card-->
+                <div class="card">
+
+                    <!--Card content-->
+                    <div class="card-body">
+
+                        <!-- Table  -->
+                        <table class="table table-hover">
+                            <!-- Table head -->
+                            <thead class="blue-grey lighten-4">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Bank name</th>
+                                    <th>Bank Account number</th>
+                                    <th>Bank Account name</th>
+                                    <th>Time</th>
+                                    <th>Amount</th>
+                                    <th>Transfer Initialized</th>
+                                    <th>Transfer Successful</th>
+                                </tr>
+                            </thead>
+                            <!-- Table head -->
+
+                            <!-- Table body -->
+                            <tbody>
+
+                                {% for item in transfer_requests %}
+                                <tr>
+                                    <th scope="row">{{forloop.counter}}</th>
+                                    <td>
+                                        {% for key, value in bank %}
+                                        {% if key == item.bank_name %}
+                                        {{value}}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    <td>{{item.bank_account_number}}</td>
+                                    <td>{{item.bank_account_name}}</td>
+                                    <td>{{item.time}}</td>
+                                    <td>{{item.amount}}</td>
+                                    <td>
+                                        {% if item.transfer_initialized %}&#10004 {% else %} &#10006{% endif %}
+                                    </td>
+                                    <td>
+                                        {% if item.transfer_successful %}&#10004 {% else %} &#10006{% endif %}
+                                    </td>
+
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td>Nothing to display</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <!-- Table body -->
+                        </table>
+                        <!-- Table  -->
+
+                    </div>
+
+                </div>
+                <!--/.Card-->
+
+            </div>
+            <!--Grid column-->
+        </div>
+        <!--Grid row-->
+
+    </div>
+</main>
+<!--Main layout-->
+{% endblock content %}
+
+{% block extra_script %}
+<script>
+    $(document).ready(function () {
+
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('sidebar-inactive');
+        });
+
+        $('#icon-sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('sidebar-inactive');
+        });
+
+
+    });
+</script>
+{% endblock extra_script %}

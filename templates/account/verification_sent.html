@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
+
+{% block content %}
+<main class="view mt-5 pt-2">
+    <div class="container">
+        <h1 class="display-3">{% trans "Verify Your E-mail Address" %}</h1>
+
+        <p class="lead">We have sent an e-mail to you for verification. Follow the link provided to
+            finalize
+            the signup process. </p>
+        <p class="lead"> Please <a href="{% url 'core:contact' %}">contact us</a> if you do not receive it
+            within a few minutes after checking the spam folder.</p>
+    </div>
+</main>
+
+{% endblock %}
