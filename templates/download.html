@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_style %}
+<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+<link rel="stylesheet" href="{% static 'css/owl.theme.css' %}">
+<link rel="stylesheet" href="{% static 'css/nivo-lightbox/nivo-lightbox.css' %}">
+<link rel="stylesheet" href="{% static 'css/nivo-lightbox/nivo-lightbox-theme.css' %}">
+<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+<script src="{% static 'js/modernizr.custom.js' %}"></script>
+{% endblock head_style %}
+
+
+{% block content %}
+<div class="view pt-5 mt-5">
+    <div class="container">
+        <div class="starting">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="{% static 'images/phone.jpg' %}" alt="Phone Picture" style="height: 60vh;"
+                        class="wow flipInY animated animated">
+                </div>
+                <div class="col-md-6">
+                    <div class="banner-text">
+                        <h2 class="animation-box wow bounceIn animated"><strong class="strong">FUNAAB Post
+                                UTME</strong><br>
+                            Past Questions and detailed solutions download</h2>
+                        <p>
+                            Get Started on the path of Excellence by downloading the rich content GSF FUNAAB Post UTME
+                            PACK.
+                        </p>
+                        <p>Latest Version: {{LATEST_UPDATE}} </p>
+                        <p>Compactible with Android 4.0 and up.</p>
+
+                        <a href="{% static 'Funaab Past Questions v1_3.apk' %}"
+                            class="btn btn-primary wow animated fadeInLeft" style="border-radius: 50px;" download>
+                            <div style="display: inline-block;">
+                                <i style="font-size: xx-large;" class="fab fa-android pull-left"></i></div>
+                            <div style="display: inline-block;"><strong>Get it Here</strong>
+                                <br />On Butopia</div>
+                            <a href="{{GOOGLE_DRIVE_LINK}}" class="btn btn-success wow animated fadeInRight"
+                                style="border-radius: 50px" target="_blank">
+                                <div style="display: inline-block;">
+                                    <i style="font-size: xx-large;" class="fab fa-google-drive pull-left"></i></div>
+                                <div style="display: inline-block;"><strong>Get it on</strong>
+                                    <br />Google Drive</div>
+                            </a>
+                            <a href="{{MEGA_LINK}}" class="btn btn-danger wow animated fadeInLeft"
+                                style="border-radius: 50px" target="_blank">
+                                <div style="display: inline-block;">
+                                    <i style="font-size: xx-large;" class="fab fa-monero pull-left"></i></div>
+                                <div style="display: inline-block;"><strong>Get it on</strong>
+                                    <br />MEGA</div>
+                                <a href="{{DATAFILEHOST_LINK}}" class="btn btn-grey wow animated fadeInRight"
+                                    style="border-radius: 50px" target="_blank">
+                                    <div style="display: inline-block;">
+                                        <i style="font-size: xx-large;" class="fab fa-dochub pull-left"></i></div>
+                                    <div style="display: inline-block;"><strong>Get it on</strong>
+                                        <br />Datafilehost</div>
+                                </a>
+                    </div> <!-- /.banner-text -->
+                </div>
+            </div>
+        </div>
+        <!-- /.starting -->
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /#header -->
+
+{% endblock content %}
+
+{% block extra_script %}
+
+<script src="{% static 'js/wow.min.js' %}"></script>
+<script src="{% static 'js/owl-carousel.js' %}"></script>
+<script src="{% static 'js/nivo-lightbox.min.js' %}"></script>
+<script src="{% static 'js/smoothscroll.js' %}"></script>
+<script src="{% static 'js/classie.js' %}"></script>
+<script>
+    new WOW().init();
+</script>
+<script>
+    $(document).ready(function () {
+        $(".hideit").click(function () {
+            $(".overlay").hide();
+        });
+        $("#trigger-overlay").click(function () {
+            $(".overlay").show();
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+
+        var kawa = $('.top-bar');
+        var back = $('#back-to-top');
+
+        function scroll() {
+            if ($(window).scrollTop() > 700) {
+                kawa.addClass('fixed');
+                back.addClass('show-top');
+
+            } else {
+                kawa.removeClass('fixed');
+                back.removeClass('show-top');
+            }
+        }
+
+        document.onscroll = scroll;
+    });
+</script>
+<!--HHHHHHHHHHHH        Smooth Scrooling     HHHHHHHHHHHHHHHH-->
+<script>
+    $(function () {
+        $('a[href*=#]:not([href=#])').click(function () {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location
+                .hostname == this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+    });
+</script>
+{% endblock extra_script %}
