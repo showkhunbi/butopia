@@ -1,0 +1,175 @@
+{% extends 'base.html' %} {% block head_style %}
+<style type="text/css">
+  html,
+  body,
+  header,
+  .view {
+    height: 100%;
+  }
+
+  @media (max-width: 740px) {
+
+    html,
+    body,
+    header,
+    .view {
+      height: 1000px;
+    }
+  }
+
+  @media (min-width: 800px) and (max-width: 850px) {
+
+    html,
+    body,
+    header,
+    .view {
+      height: 650px;
+    }
+  }
+
+  @media (min-width: 800px) and (max-width: 850px) {
+    .navbar:not(.top-nav-collapse) {
+      background: #1c2331 !important;
+    }
+  }
+</style>
+{% endblock head_style %} {% block content %}
+
+<!-- Full Page Intro -->
+<div class="view full-page-intro" style="
+    background-image: url('https://mdbootstrap.com/img/Photos/Others/images/78.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  ">
+  <!-- Mask & flexbox options-->
+  <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+    <!-- Content -->
+    <div class="container mt-5 pt-2">
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+        <!--Grid column-->
+        <div class="col-md-6 mb-4 white-text text-center text-md-left">
+          <h1 class="display-5 font-weight-bold">Purchase GSF FUNAAB Post UTME Past Questions and Solutions Manual Full
+            License</h1>
+
+          <hr class="hr-light" />
+
+          <p>
+            <strong>Price: N1,500 only</strong>
+          </p>
+          <p>
+            <strong>Best Past Question Pack</strong>
+          </p>
+
+          <p class="mb-4 d-none d-md-block">
+            <strong>The most comprehensive tutorial book which
+              is an essential tool for students who aspire to achieve mastery of the subjects
+              included and also excellent results in FUNAAB Screening exercise.</strong>
+          </p>
+
+          <a target="_blank" href="{% url 'core:download' %}" class="btn btn-indigo btn-lg">Download
+            <i class="fas fa-download ml-2"></i>
+          </a>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-6 col-xl-5 mb-4">
+          <!--Card-->
+          <div class="card">
+            <!--Card content-->
+            <div class="card-body">
+              <!-- Form -->
+              <form id="paymentForm">
+                <!-- Heading -->
+                <h3 class="dark-grey-text text-center">
+                  <strong>Payment</strong>
+                </h3>
+                <hr />
+
+                <div class="md-form">
+                  <i class="fas fa-user prefix grey-text"></i>
+                  <input type="text" id="first-name" class="form-control" required />
+                  <label for="first-name">First name</label>
+                </div>
+                <div class="md-form">
+                  <i class="fas fa-user prefix grey-text"></i>
+                  <input type="text" id="last-name" class="form-control" required />
+                  <label for="last-name">Last name</label>
+                </div>
+                <div class="md-form">
+                  <i class="fas fa-phone prefix grey-text"></i>
+                  <input type="number" id="phone" class="form-control" />
+                  <label for="phone">Phone Number</label>
+                </div>
+                <div class="md-form">
+                  <i class="fas fa-envelope prefix grey-text"></i>
+                  <input type="email" id="email-address" {% if email %} value="{{email}}" {% endif %}
+                    class="form-control" required />
+                  <label for="email-address">Your email</label>
+                </div>
+                <div class="md-form">
+                  <i class="fas fa-id-card prefix grey-text"></i>
+                  <input {% if referrer %} value="{{referrer}}" disabled {% endif %} type="text" id="referrer"
+                    class="form-control" onkeyup="this.value = this.value.toLowerCase();" />
+                  <label for="referrer">Referrer</label>
+                </div>
+                <div class="text-center">
+                  <p style="font-size: x-small; margin-bottom: 0; color: grey">On Clicking the button below, you have
+                    agreed to pay
+                    N1,500</p>
+                  <button class="btn btn-indigo" onclick="payWithPaystack()" type="submit">
+                    Proceed to Payment
+                  </button>
+                </div>
+              </form>
+              <script src="https://js.paystack.co/v1/inline.js"></script>
+              <!-- Form -->
+            </div>
+          </div>
+          <!--/.Card-->
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </div>
+    <!-- Content -->
+  </div>
+  <!-- Mask & flexbox options-->
+</div>
+<!-- Full Page Intro -->
+
+<script>
+  const paymentForm = document.getElementById("paymentForm");
+  paymentForm.addEventListener("submit", payWithPaystack, false);
+
+  function payWithPaystack(e) {
+    e.preventDefault();
+    let handler = PaystackPop.setup({
+      key: "pk_test_d9907dcdb41dc7ef8283e61f74c15cd89577716f", // Replace with your public key
+      email: document.getElementById("email-address").value,
+      amount: 1500 * 100,
+      ref: "" + Math.floor(Math.random() * 1000000000 +
+        1), // generates a pseudo-unique reference. Please replace with a
+      //reference you generated. Or remove the line entirely so our API will generate one for you
+      // label: "Optional string that replaces customer email"
+      metadata: {
+        first_name: document.getElementById("first-name").value,
+        last_name: document.getElementById("last-name").value,
+        phone: document.getElementById("phone").value,
+        referrer_id: document.getElementById("referrer").value
+      },
+      onClose: function () {
+        alert("Window closed.");
+      },
+      callback: function (response) {
+        window.location = "{% url 'core:verify'%}?reference=" + response.reference;
+        let message = "Payment complete! Reference: " + response.reference;
+        alert(message);
+      },
+    });
+    handler.openIframe();
+  }
+</script>
+
+{% endblock content %}
