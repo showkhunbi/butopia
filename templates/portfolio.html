@@ -1,0 +1,292 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block extra_head %}
+<style>
+    html,
+    body,
+    header,
+    .view {
+        height: 100%;
+    }
+
+    /* Carousel*/
+    .carousel,
+    .carousel-item,
+    .carousel-item.active {
+        height: 100%;
+    }
+
+    .carousel-inner {
+        height: 100%;
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+        .navbar:not(.top-nav-collapse) {
+            background: #1C2331 !important;
+        }
+    }
+</style>
+{% endblock extra_head %}
+
+
+{% block content %}
+<!-- data-ride="carousel" -->
+<!--Carousel Wrapper-->
+<div id="carousel-example-1z" class="carousel slide carousel-fade">
+
+    <!--Indicators-->
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-1z" data-slide-to="1"></li>
+        <li data-target="#carousel-example-1z" data-slide-to="2"></li>
+    </ol>
+    <!--/.Indicators-->
+
+    <!--Slides-->
+    <div class="carousel-inner" role="listbox">
+
+        <!--First slide-->
+        <div class="carousel-item active">
+            <div class="view" style=" background-image: url('{% static 'images/comp.webp' %}'); background-repeat:
+                no-repeat; background-size: cover;">
+
+                <!--Video source-->
+                <!-- <video class="video-intro" autoplay loop muted>
+                    <source src="{% static 'images/comp.webp' %}" type="video/mp4" />
+                </video> -->
+
+                <!-- Mask & flexbox options-->
+                <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+                    <!-- Content -->
+                    <div class="text-center white-text mx-5 wow fadeIn">
+                        <h1 class="mb-4 display-1">
+                            <strong>Web development</strong>
+                        </h1>
+
+                        <p class="lead">
+                            <strong>Building of Web sites and Applications</strong>
+                        </p>
+
+                        <p class="mb-4 d-none d-md-block lead">
+                            <strong>We build and upgrade existing websites to a dynamic and responsive web applications
+                                to suit your business needs. Contact us to get your website solutions</strong>
+                        </p>
+
+                        <a href="{% url 'core:contact' %}" class="btn btn-outline-white btn-lg">Get your website
+                            solutions
+                            <i class="fas fa-globe-africa ml-2"></i>
+                        </a>
+                    </div>
+                    <!-- Content -->
+
+                </div>
+                <!-- Mask & flexbox options-->
+
+            </div>
+        </div>
+        <!--/First slide-->
+
+        <!--Second slide-->
+        <div class="carousel-item">
+            <div class="view" style=" background-image: url('{% static 'images/coding-man.webp' %}'); background-repeat:
+                no-repeat; background-size: cover;">
+
+                <!-- Mask & flexbox options-->
+                <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+                    <!-- Content -->
+                    <div class="text-center white-text mx-5 wow fadeIn">
+                        <h1 class="mb-4 display-1">
+                            <strong>Software Development</strong>
+                        </h1>
+
+                        <p class="lead">
+                            <strong>Building of Android and Windows Applications</strong>
+                        </p>
+
+                        <p class="mb-4 d-none d-md-block">
+                            <strong>We build cross platform software applications
+                                to satisfy your business needs. Contact us to get your software solutions</strong>
+                        </p>
+
+                        <a href="{% url 'core:contact' %}" class="btn btn-outline-white btn-lg">Get your Software
+                            solutions
+                            <i class="fas fa-box-open ml-2"></i>
+                        </a>
+                    </div>
+                    <!-- Content -->
+
+                </div>
+                <!-- Mask & flexbox options-->
+
+            </div>
+        </div>
+        <!--/Second slide-->
+
+        <!--Third slide-->
+        <div class="carousel-item">
+            <div class="view" style=" background-image: url('{% static 'images/4474520.webp' %}'); background-repeat:
+                no-repeat; background-size: cover;">
+
+                <!--Video source-->
+                <!-- <video class="video-intro" autoplay loop muted>
+                    <source src="https://mdbootstrap.com/img/video/forest.mp4" type="video/mp4" />
+                </video> -->
+
+                <!-- Mask & flexbox options-->
+                <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+                    <!-- Content -->
+                    <div class="text-center white-text mx-5 wow fadeIn">
+                        <h1 class="mb-4 display-1">
+                            <strong>Programming Lessons</strong>
+                        </h1>
+
+                        <p>
+                            <strong class="lead">Learn Programming from our Educators</strong>
+                        </p>
+
+                        <p class="mb-4 d-none d-md-block lead">
+                            <strong>We offer Physical tutorials for beginners and virtual mentorship for advanced
+                                learners</strong>
+                        </p>
+
+                        <a href="{% url 'core:contact' %}" class="btn btn-outline-white btn-lg">Book a Session
+                            <i class="fas fa-graduation-cap ml-2"></i>
+                        </a>
+                    </div>
+                    <!-- Content -->
+
+                </div>
+                <!-- Mask & flexbox options-->
+
+            </div>
+        </div>
+        <!--/Third slide-->
+
+    </div>
+    <!--/.Slides-->
+
+    <!--Controls-->
+    <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+    <!--/.Controls-->
+
+</div>
+<!--/.Carousel Wrapper-->
+
+<!--Main layout-->
+<main>
+    <div class="container">
+
+        <!--Section: Main info-->
+        <section class="mt-5 wow fadeIn">
+
+            <!--Grid row-->
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-4">
+
+                    <img src="{% static 'images/scshot.webp' %}" class="img-fluid z-depth-1-half" alt="">
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-4">
+
+                    <!-- Main heading -->
+                    <h3 class="h3 mb-3">General Programming Solutions</h3>
+                    <p>We provide you with any type of Programming solutions you require for your business.</p>
+                    <p>This may include Data Sourcing and analysis, Automation e.t.c</p>
+                    <!-- Main heading -->
+                    <hr>
+                    <p>
+                        Learn More or Get started by contacting Johnson Cooper
+                    </p>
+                    <!-- CTA -->
+                    <a href="{% url 'core:contact' %}" class="btn btn-grey btn-md">Contact
+                        <i class="fas fa-download ml-1"></i>
+                    </a>
+
+                </div>
+                <!--Grid column-->
+            </div>
+            <hr>
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-4">
+
+                    <img src="{% static 'images/4474520.webp' %}" class="img-fluid z-depth-1-half" alt="">
+
+                </div>
+                <!--Grid column-->
+                <div class="col-md-6 mb-4">
+
+                    <!-- Main heading -->
+                    <h3 class="h3 mb-3">Web Development Solutions</h3>
+                    <p>We provide you with any type of Web development solutions that satisfies your business.</p>
+                    <p>This may include Web Applications, Blogging websites e.t.c </p>
+                    <!-- Main heading -->
+                    <hr>
+                    <p>
+                        Learn More or Get started by contacting Johnson Cooper
+                    </p>
+                    <!-- CTA -->
+                    <a href="{% url 'core:contact' %}" class="btn btn-grey btn-md">Contact
+                        <i class="fas fa-download ml-1"></i>
+                    </a>
+
+                </div>
+                <!--Grid column-->
+            </div>
+            <hr>
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-4">
+
+                    <img src="{% static 'images/coding-man.webp' %}" class="img-fluid z-depth-1-half" alt="">
+
+                </div>
+                <div class="col-md-6 mb-4">
+
+                    <!-- Main heading -->
+                    <h3 class="h3 mb-3">Software Development Solutions</h3>
+                    <p>We provide you with any type of Software development solutions that satisfies your business.
+                    </p>
+                    <p>This may include Android, P.C softwares</p>
+                    <!-- Main heading -->
+                    <hr>
+                    <p>
+                        Learn More or Get started by contacting Johnson Cooper
+                    </p>
+                    <!-- CTA -->
+                    <a href="{% url 'core:contact' %}" class="btn btn-grey btn-md">Contact
+                        <i class="fas fa-download ml-1"></i>
+                    </a>
+
+                </div>
+                <!--Grid column-->
+            </div>
+
+            <!--Grid row-->
+
+        </section>
+        <!--Section: Main info-->
+
+    </div>
+</main>
+<!--Main layout-->
+{% endblock content %}
