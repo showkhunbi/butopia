@@ -1,0 +1,88 @@
+<!-- Navbar -->
+<div class="fixed-top" style=" background: none; margin-top: 70px; z-index: 55; position: absolute; width: 100vw">
+    {% if messages %} {% for message in messages %}
+    <div class="alert {% if message.tags == 'error' %}alert-danger {% else %} alert-{{message.tags}}{% endif %}
+          alert-dismissible fade show" role="alert">
+        {{message}}
+        <button type="button" class="close" data-dismiss="alert">
+            <span>&times</span>
+        </button>
+    </div>
+    {% endfor %} {% endif %}
+</div>
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+    <div class="container">
+
+        <!-- Brand -->
+        <a class="navbar-brand" id="sidebarCollapse" href="#">
+            <i class="fas fa-align-left"></i>
+            <strong>B-Utopia</strong>
+        </a>
+
+        <!-- Collapse -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Links -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <!-- Left -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" id="homeLink">
+                    <a class="nav-link" href="{% url 'core:homeview' %}">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item" id="downloadlink">
+                    <a class="nav-link" href="{% url 'core:download' %}">Download</a>
+                </li>
+                <li class="nav-item" id="paymentLink">
+                    <a class="nav-link" href="{% url 'core:paymentview' %}">Payment</a>
+                </li>
+                <li class="nav-item" id="promoterLink">
+                    <a class="nav-link" href="{% url 'core:dashboard' %}">Promoters</a>
+                </li>
+                <li class="nav-item" id="ourServicesLink">
+                    <a class="nav-link" href="{% url 'core:portfolio' %}">Our Services</a>
+                </li>
+                <li class="nav-item" id="contactUsLink">
+                    <a class="nav-link" href="{% url 'core:contact' %}">Contact Us</a>
+                </li>
+            </ul>
+
+            <!-- Right -->
+            <ul class="navbar-nav nav-flex-icons">
+
+                {% if user.is_authenticated %}
+                <li class="nav-item mr-2">
+                    <a href="{% url 'account_change_password' %}" class="nav-link border border-light rounded">
+                        <i class="fas fa-unlock-alt mr-2"></i>Change Password
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'account_logout' %}" class="nav-link border border-light rounded">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Sign Out
+                    </a>
+                </li>
+                {% else %}
+                <li class="nav-item mr-2">
+                    <a href="{% url 'account_login' %}" class="nav-link border border-light rounded">
+                        <i class="fas fa-sign-in-alt mr-2"></i>Sign in
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'account_signup' %}" class="nav-link border border-light rounded">
+                        <i class="fas fa-user-plus mr-2"></i>Sign up
+                    </a>
+                </li>
+                {% endif %}
+
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+<!-- Navbar -->
